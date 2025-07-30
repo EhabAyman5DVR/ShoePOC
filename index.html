@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.css">
   <!-- Model Viewer JS -->
   <script type="module" src="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.min.js"></script>
-  <script type="module" crossorigin src="/ShoePOC/assets/index-CQ_FWDgr.js"></script>
-  <link rel="stylesheet" crossorigin href="/ShoePOC/assets/index-BnD6LdHS.css">
+  <script type="module" crossorigin src="/ShoePOC/assets/index-CaFrKecJ.js"></script>
+  <link rel="stylesheet" crossorigin href="/ShoePOC/assets/index-CrbUKtFL.css">
 </head>
 
 <body>
@@ -42,7 +42,14 @@
           shadow-softness="0"
           camera-orbit="45deg 55deg 2.5m"
           min-camera-orbit="auto auto 1m"
-          max-camera-orbit="auto auto 10m">
+          max-camera-orbit="auto auto 10m"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          ar-placement="floor">
+          <button slot="ar-button" class="ar-button">
+            👋 Activate AR
+          </button>
         </model-viewer>
       </div>
 
@@ -62,9 +69,14 @@
           min-camera-orbit="auto auto 1m"
           max-camera-orbit="auto auto 10m"
           interaction-prompt="auto"
-          loading="eager">
-          <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; bottom: 16px; right: 16px; ">
-            👋 Activate AR
+          loading="eager"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          ar-placement="floor"
+          ar-button>
+          <button slot="ar-button" class="ar-button">
+            🚀 Launch AR Experience
           </button>
         </model-viewer>
       </div>
@@ -84,9 +96,14 @@
           camera-orbit="45deg 55deg 2.5m"
           min-camera-orbit="auto auto 1m"
           max-camera-orbit="auto auto 10m"
-          interaction-prompt="auto">
-          <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; bottom: 16px; right: 16px; ">
-            👟 Try On Shoe
+          interaction-prompt="auto"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          ar-placement="floor"
+          ar-button>
+          <button slot="ar-button" class="ar-button">
+            👟 Try On Shoe in AR
           </button>
         </model-viewer>
       </div>
