@@ -6,6 +6,9 @@ import {
   //Transform2D,
 } from '@snap/camera-kit';
 
+// Import the AR handler
+import './model-viewer-ar';
+
 
 // Store the current session
 let currentSession: CameraKitSession;

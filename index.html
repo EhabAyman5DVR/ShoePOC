@@ -1,18 +1,60 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, orientation=portrait">
-  <title>World Tracking Demo</title>
+  <title>Shoe Tryon - CameraKit + Model Viewer Demo</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Model Viewer CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.css">
+  <!-- Model Viewer JS -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.min.js"></script>
 </head>
 
 <body>
-  <!-- Canvas & Video Preview -->
-    <canvas id="canvas" class="fullscreen"></canvas>
-    <section id="video-container" style="display: none">
-      <video loop controls autoplay id="video"></video>
-    </section>
+  <!-- Main Container -->
+  <div class="app-container">
+    <!-- CameraKit Section -->
+    <div class="camera-section">
+      <h2>CameraKit AR Experience</h2>
+      <canvas id="canvas" class="fullscreen"></canvas>
+      <section id="video-container" style="display: none">
+        <video loop controls autoplay id="video"></video>
+      </section>
+    </div>
+
+    <!-- Model Viewer Section -->
+    <div class="model-viewer-section">
+      <!-- Local Shoe Model -->
+      <div class="model-container">
+        <h3>Model Preview</h3>
+        <model-viewer 
+          src="/ShoePOC/models/1.glb"
+          alt="Shoe 1"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          environment-image="neutral"
+          exposure="1"
+          shadow-softness="0"
+          camera-orbit="45deg 55deg 2.5m"
+          min-camera-orbit="auto auto 1m"
+          max-camera-orbit="auto auto 10m"
+          interaction-prompt="auto"
+          loading="eager"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          ar-placement="floor"
+          ar-button>
+          <button slot="ar-button" class="ar-button">
+            👟 View in AR
+          </button>
+        </model-viewer>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/src/main.ts"></script>
 </body>
-
 </html>
