@@ -28,12 +28,12 @@
     <div class="model-viewer-section">
       <h2>3D Model Viewer Examples</h2>
       
-      <!-- Interactive Model Viewer -->
+      <!-- Local Shoe Model -->
       <div class="model-container">
-        <h3>Shoe 1</h3>
+        <h3>Your Shoe Model</h3>
         <model-viewer 
-          src="/models/Shoe_1.glb"
-          alt="Shoe 1"
+          src="/ShoePOC/models/1.glb"
+          alt="Your Shoe Model"
           camera-controls
           auto-rotate
           shadow-intensity="1"
@@ -51,7 +51,32 @@
           ar-placement="floor"
           ar-button>
           <button slot="ar-button" class="ar-button">
-            🚀 Launch AR Experience
+            👟 Try On Shoe in AR
+          </button>
+        </model-viewer>
+      </div>
+
+      <!-- External Model for Reference -->
+      <div class="model-container">
+        <h3>Reference Model (External)</h3>
+        <model-viewer 
+          src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+          alt="Reference 3D model"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          environment-image="neutral"
+          exposure="1"
+          shadow-softness="0"
+          camera-orbit="45deg 55deg 2.5m"
+          min-camera-orbit="auto auto 1m"
+          max-camera-orbit="auto auto 10m"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          ar-placement="floor">
+          <button slot="ar-button" class="ar-button">
+            👋 Activate AR
           </button>
         </model-viewer>
       </div>
