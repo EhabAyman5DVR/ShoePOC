@@ -8,26 +8,20 @@
   <link rel="stylesheet" href="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.css">
   <!-- Model Viewer JS -->
   <script type="module" src="https://unpkg.com/@google/model-viewer@^4.1.0/dist/model-viewer.min.js"></script>
-  <script type="module" crossorigin src="/ShoePOC/assets/index-B_B7g6rI.js"></script>
-  <link rel="stylesheet" crossorigin href="/ShoePOC/assets/index-avrGWjop.css">
+  <script type="module" crossorigin src="/ShoePOC/assets/index-DjZ0QGjA.js"></script>
+  <link rel="stylesheet" crossorigin href="/ShoePOC/assets/index-CwL9-XNR.css">
 </head>
 
 <body>
   <!-- Main Container -->
   <div class="app-container">
-    <!-- CameraKit Section -->
-    <div class="camera-section">
-      <canvas id="canvas" class="fullscreen"></canvas>
-      <section id="video-container" style="display: none">
-        <video loop controls autoplay id="video"></video>
-      </section>
-    </div>
-
-    <!-- Model Viewer Section -->
-    <div class="model-viewer-section">
-      <!-- Local Shoe Model -->
+    <!-- Model Preview Section -->
+    <div class="model-preview-section">
+      <h2>Shoe Try-On Experience</h2>
+      
+      <!-- Model Container -->
       <div class="model-container">
-        <h3>Model Preview</h3>
+        <h3>Choose Your Style</h3>
         <model-viewer 
           id="shoe-viewer"
           src="/ShoePOC/models/1.glb"
@@ -35,7 +29,7 @@
           camera-controls
           auto-rotate
           shadow-intensity="1"
-          exposure="0.5"
+          exposure="0.6"
           disable-pan="true"
           shadow-softness="0"
           camera-orbit="45deg 55deg 2.5m"
@@ -62,7 +56,29 @@
             <span class="icon" style="background: #fff; border: 1px solid #ccc;"></span>
           </button>
         </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="try-on-btn" class="action-btn primary">
+            📱 Try On with Camera
+          </button>
+          <button id="ar-btn" class="action-btn secondary">
+            🎯 View in AR
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- CameraKit Section (Hidden by default) -->
+    <div id="camera-section" class="camera-section" style="display: none;">
+      <div class="camera-header">
+        <button id="close-camera-btn" class="close-btn">✕</button>
+        <h3>Camera Try-On</h3>
+      </div>
+      <canvas id="canvas" class="fullscreen"></canvas>
+      <section id="video-container" style="display: none">
+        <video loop controls autoplay id="video"></video>
+      </section>
     </div>
   </div>
 
