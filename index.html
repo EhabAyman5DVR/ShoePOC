@@ -14,19 +14,13 @@
 <body>
   <!-- Main Container -->
   <div class="app-container">
-    <!-- CameraKit Section -->
-    <div class="camera-section">
-      <canvas id="canvas" class="fullscreen"></canvas>
-      <section id="video-container" style="display: none">
-        <video loop controls autoplay id="video"></video>
-      </section>
-    </div>
-
-    <!-- Model Viewer Section -->
-    <div class="model-viewer-section">
-      <!-- Local Shoe Model -->
+    <!-- Model Preview Section -->
+    <div class="model-preview-section">
+      <h2>Shoe Try-On Experience</h2>
+      
+      <!-- Model Container -->
       <div class="model-container">
-        <h3>Model Preview</h3>
+        <h3>Choose Your Style</h3>
         <model-viewer 
           id="shoe-viewer"
           src="/ShoePOC/models/1.glb"
@@ -36,6 +30,7 @@
           shadow-intensity="1"
           exposure="0.6"
           disable-pan="true"
+          scale="0.7 0.7 0.7"
           shadow-softness="0"
           camera-orbit="45deg 55deg 2.5m"
           min-camera-orbit="auto auto 1m"
@@ -45,11 +40,7 @@
           ar
           ar-modes="webxr scene-viewer quick-look"
           ar-scale="auto"
-          ar-placement="floor"
-          ar-button>
-          <button slot="ar-button" class="ar-button">
-            👟 View in AR
-          </button>
+          ar-placement="floor">
         </model-viewer>
 
         <!-- Carousel for variants -->
@@ -61,7 +52,29 @@
             <span class="icon" style="background: #fff; border: 1px solid #ccc;"></span>
           </button>
         </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="try-on-btn" class="action-btn primary">
+            📱 Try On with Camera
+          </button>
+          <button id="ar-btn" class="action-btn secondary">
+            👟 View in AR
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- CameraKit Section (Hidden by default) -->
+    <div id="camera-section" class="camera-section" style="display: none;">
+      <div class="camera-header">
+        <button id="close-camera-btn" class="close-btn">✕</button>
+        <h3>Camera Try-On</h3>
+      </div>
+      <canvas id="canvas" class="fullscreen"></canvas>
+      <section id="video-container" style="display: none">
+        <video loop controls autoplay id="video"></video>
+      </section>
     </div>
   </div>
 

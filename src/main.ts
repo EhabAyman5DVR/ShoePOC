@@ -12,27 +12,33 @@ import './model-viewer-ar';
 
 // Store the current session
 let currentSession: CameraKitSession;
-
 let mediaStream: MediaStream;
-
+let isCameraActive = false;
 
 const liveRenderTarget = document.getElementById(
   'canvas'
 ) as HTMLCanvasElement;
 
-async function init() {
-  const cameraKit = await bootstrapCameraKit({ apiToken: 'eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzUyNDkyMzM3LCJzdWIiOiJlMDA1YTEzMy1jNmNlLTRmNmUtYjMyMC05YTNkYzVjOTRlZTN-U1RBR0lOR35mZjZkOGU3OC0xZWYzLTQ3ZWUtOGY0ZC1lM2Y5MDZjOTZlZTEifQ.yf7OFtk9dhdjq8FsmXghKNea_7GMoBF01AGEpTVj6ZY' });
-  currentSession = await cameraKit.createSession({ liveRenderTarget });
-  const lenses = await cameraKit.lensRepository.loadLens('10573a22-a9e2-495c-9294-f917c95f7e37',
-    'c352182f-89be-4007-b24c-8fcf50c56d56'
-  );
+async function initCameraKit() {
+  if (isCameraActive) return; // Prevent multiple initializations
+  
+  try {
+    const cameraKit = await bootstrapCameraKit({ apiToken: 'eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzUyNDkyMzM3LCJzdWIiOiJlMDA1YTEzMy1jNmNlLTRmNmUtYjMyMC05YTNkYzVjOTRlZTN-U1RBR0lOR35mZjZkOGU3OC0xZWYzLTQ3ZWUtOGY0ZC1lM2Y5MDZjOTZlZTEifQ.yf7OFtk9dhdjq8FsmXghKNea_7GMoBF01AGEpTVj6ZY' });
+    currentSession = await cameraKit.createSession({ liveRenderTarget });
+    const lenses = await cameraKit.lensRepository.loadLens('10573a22-a9e2-495c-9294-f917c95f7e37',
+      'c352182f-89be-4007-b24c-8fcf50c56d56'
+    );
 
-  currentSession.applyLens(lenses);
+    currentSession.applyLens(lenses);
 
-  // Remove fullscreen class after lens is loaded
-  liveRenderTarget.classList.remove('fullscreen');
+    // Remove fullscreen class after lens is loaded
+    liveRenderTarget.classList.remove('fullscreen');
 
-  await setCameraKitSource(currentSession);
+    await setCameraKitSource(currentSession);
+    isCameraActive = true;
+  } catch (error) {
+    console.error('Failed to initialize CameraKit:', error);
+  }
 }
 
 async function setCameraKitSource(
@@ -52,8 +58,6 @@ async function setCameraKitSource(
 
   session.play();
 }
-init();
-
 // Carousel functionality for model switching
 function initCarousel() {
   const viewer = document.getElementById('shoe-viewer') as any;
@@ -78,5 +82,45 @@ function initCarousel() {
 // Initialize carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initCarousel();
+  initWorkflowHandlers();
 });
+
+// Workflow handlers for camera and AR
+function initWorkflowHandlers() {
+  const tryOnBtn = document.getElementById('try-on-btn');
+  const arBtn = document.getElementById('ar-btn');
+  const cameraSection = document.getElementById('camera-section');
+  const closeCameraBtn = document.getElementById('close-camera-btn');
+
+  // Try On with Camera button
+  tryOnBtn?.addEventListener('click', async () => {
+    console.log('Starting camera try-on experience...');
+    cameraSection!.style.display = 'flex';
+    await initCameraKit();
+  });
+
+  // AR button (uses model-viewer's built-in AR)
+  arBtn?.addEventListener('click', () => {
+    console.log('Launching AR experience...');
+    const modelViewer = document.getElementById('shoe-viewer') as any;
+    if (modelViewer && modelViewer.activateAR) {
+      modelViewer.activateAR();
+    }
+  });
+
+  // Close camera button
+  closeCameraBtn?.addEventListener('click', () => {
+    console.log('Closing camera experience...');
+    cameraSection!.style.display = 'none';
+    
+    // Stop camera stream
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => track.stop());
+    }
+    if (currentSession) {
+      currentSession.pause();
+    }
+    isCameraActive = false;
+  });
+}
 
