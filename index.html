@@ -17,7 +17,6 @@
   <div class="app-container">
     <!-- CameraKit Section -->
     <div class="camera-section">
-      <h2>CameraKit AR Experience</h2>
       <canvas id="canvas" class="fullscreen"></canvas>
       <section id="video-container" style="display: none">
         <video loop controls autoplay id="video"></video>
@@ -36,8 +35,8 @@
           camera-controls
           auto-rotate
           shadow-intensity="1"
-          environment-image="neutral"
-          exposure="1"
+          exposure="0.5"
+          disable-pan="true"
           shadow-softness="0"
           camera-orbit="45deg 55deg 2.5m"
           min-camera-orbit="auto auto 1m"
