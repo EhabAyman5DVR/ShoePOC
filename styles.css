@@ -229,3 +229,46 @@ model-viewer button[slot="ar-button"]:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4) !important;
 }
+
+/* Carousel Styles */
+.carousel {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.variant-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.variant-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.variant-btn .icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #888;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.variant-btn[aria-pressed="true"] .icon {
+    border: 3px solid #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.variant-btn[aria-pressed="true"] {
+    background: rgba(102, 126, 234, 0.1);
+}

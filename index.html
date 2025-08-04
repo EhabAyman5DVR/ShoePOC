@@ -16,7 +16,6 @@
   <div class="app-container">
     <!-- CameraKit Section -->
     <div class="camera-section">
-      <h2>CameraKit AR Experience</h2>
       <canvas id="canvas" class="fullscreen"></canvas>
       <section id="video-container" style="display: none">
         <video loop controls autoplay id="video"></video>
@@ -29,13 +28,14 @@
       <div class="model-container">
         <h3>Model Preview</h3>
         <model-viewer 
+          id="shoe-viewer"
           src="/ShoePOC/models/1.glb"
           alt="Shoe 1"
           camera-controls
           auto-rotate
           shadow-intensity="1"
-          environment-image="neutral"
-          exposure="1"
+          exposure="0.6"
+          disable-pan="true"
           shadow-softness="0"
           camera-orbit="45deg 55deg 2.5m"
           min-camera-orbit="auto auto 1m"
@@ -51,6 +51,16 @@
             👟 View in AR
           </button>
         </model-viewer>
+
+        <!-- Carousel for variants -->
+        <div class="carousel">
+          <button class="variant-btn" data-src="/ShoePOC/models/1.glb" aria-label="Black Shoe" aria-pressed="true">
+            <span class="icon" style="background: #222;"></span>
+          </button>
+          <button class="variant-btn" data-src="/ShoePOC/models/2.glb" aria-label="White Shoe">
+            <span class="icon" style="background: #fff; border: 1px solid #ccc;"></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

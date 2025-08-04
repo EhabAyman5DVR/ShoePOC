@@ -18,10 +18,10 @@ interface ModelViewerElement extends HTMLElement {
   arScale: string;
   arPlacement: string;
   arButton: boolean;
-
+  
   // AR-specific methods
   activateAR(): Promise<void>;
-
+  
   // Event listeners
   addEventListener(type: string, listener: EventListener): void;
   removeEventListener(type: string, listener: EventListener): void;
@@ -38,13 +38,13 @@ class ModelViewerARHandler {
   private async init(): Promise<void> {
     // Check AR support
     this.arSupported = await this.checkARSupport();
-
+    
     // Initialize model viewers
     this.initializeModelViewers();
-
+    
     // Add event listeners
     this.addEventListeners();
-
+    
     console.log('Model Viewer AR Handler initialized');
   }
 
@@ -58,25 +58,23 @@ class ModelViewerARHandler {
         return isSupported;
       } catch (error) {
         console.log('WebXR AR not supported:', error);
-        // Don't return false here, check other methods
+        return false;
       }
     }
-
+    
     // Check for Scene Viewer (Android)
     if (navigator.userAgent.includes('Android')) {
       console.log('Android detected - Scene Viewer may be available');
       return true;
     }
-
+    
     // Check for Quick Look (iOS)
     if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
       console.log('iOS detected - Quick Look may be available');
       return true;
     }
-
-    // For desktop testing, assume AR might work
-    console.log('Desktop detected - AR may work with device emulation');
-    return true;
+    
+    return false;
   }
 
   private initializeModelViewers(): void {
@@ -84,7 +82,7 @@ class ModelViewerARHandler {
 
     modelViewerElements.forEach((modelViewer) => {
       this.modelViewers.push(modelViewer);
-
+      
       // Add loading indicator
       this.addLoadingIndicator(modelViewer);
     });
@@ -98,7 +96,7 @@ class ModelViewerARHandler {
       <div class="spinner"></div>
       <span>Loading 3D Model...</span>
     `;
-
+    
     // Style the loading indicator
     loadingIndicator.style.cssText = `
       position: absolute;
@@ -115,7 +113,7 @@ class ModelViewerARHandler {
       gap: 10px;
       z-index: 5;
     `;
-
+    
     // Add spinner styles
     const spinner = loadingIndicator.querySelector('.spinner') as HTMLElement;
     spinner.style.cssText = `
@@ -126,7 +124,7 @@ class ModelViewerARHandler {
       border-radius: 50%;
       animation: spin 1s linear infinite;
     `;
-
+    
     // Add keyframes for spinner animation
     if (!document.querySelector('#spinner-styles')) {
       const style = document.createElement('style');
@@ -162,13 +160,13 @@ class ModelViewerARHandler {
         console.log(`Model ${index} loaded successfully`);
         this.onModelLoaded(index);
       });
-
+      
       // Error handling
       modelViewer.addEventListener('error', (event: any) => {
         console.error(`Error loading model ${index}:`, event.detail);
         this.handleModelError(index, event.detail);
       });
-
+      
       // AR button click
       const arButton = modelViewer.querySelector('button[slot="ar-button"]');
       if (arButton) {
@@ -181,8 +179,6 @@ class ModelViewerARHandler {
   }
 
   private handleARStatus(status: any, modelIndex: number): void {
-    console.log(`AR Status for model ${modelIndex}:`, status);
-
     switch (status) {
       case 'failed':
         console.error(`AR failed for model ${modelIndex}`);
@@ -199,17 +195,14 @@ class ModelViewerARHandler {
         console.log(`AR session ended for model ${modelIndex}`);
         this.onARSessionEnded(modelIndex);
         break;
-      default:
-        console.log(`Unknown AR status: ${status}`);
-        break;
     }
   }
 
   private async handleARButtonClick(modelIndex: number): Promise<void> {
     const modelViewer = this.modelViewers[modelIndex];
-
+    
     console.log(`Attempting to activate AR for model ${modelIndex}`);
-
+    
     try {
       // Let the model-viewer handle AR activation directly
       // Don't check canActivateAR as it might be unreliable
@@ -229,7 +222,7 @@ class ModelViewerARHandler {
 
   private onModelLoaded(modelIndex: number): void {
     console.log(`Model ${modelIndex} is ready for AR`);
-
+    
     // Add success indicator
     const modelViewer = this.modelViewers[modelIndex];
     const successIndicator = document.createElement('div');
@@ -247,9 +240,9 @@ class ModelViewerARHandler {
       font-weight: bold;
       z-index: 5;
     `;
-
+    
     modelViewer.appendChild(successIndicator);
-
+    
     // Remove indicator after 3 seconds
     setTimeout(() => {
       successIndicator.remove();
@@ -258,7 +251,7 @@ class ModelViewerARHandler {
 
   private handleModelError(modelIndex: number, error: any): void {
     console.error(`Model ${modelIndex} failed to load:`, error);
-
+    
     const modelViewer = this.modelViewers[modelIndex];
     const errorIndicator = document.createElement('div');
     errorIndicator.className = 'model-error-indicator';
@@ -299,9 +292,9 @@ class ModelViewerARHandler {
         ❌ AR failed to start
       </div>
     `;
-
+    
     document.body.appendChild(notification);
-
+    
     setTimeout(() => {
       notification.remove();
     }, 5000);
@@ -309,7 +302,7 @@ class ModelViewerARHandler {
 
   private onARSessionStarted(modelIndex: number): void {
     console.log(`AR session started for model ${modelIndex}`);
-
+    
     // Add AR session indicator
     const notification = document.createElement('div');
     notification.innerHTML = `
@@ -329,9 +322,9 @@ class ModelViewerARHandler {
         🎯 AR Session Active
       </div>
     `;
-
+    
     document.body.appendChild(notification);
-
+    
     setTimeout(() => {
       notification.remove();
     }, 3000);
@@ -339,7 +332,7 @@ class ModelViewerARHandler {
 
   private onARSessionEnded(modelIndex: number): void {
     console.log(`AR session ended for model ${modelIndex}`);
-
+    
     // Add session ended indicator
     const notification = document.createElement('div');
     notification.innerHTML = `
@@ -359,9 +352,9 @@ class ModelViewerARHandler {
         👋 AR Session Ended
       </div>
     `;
-
+    
     document.body.appendChild(notification);
-
+    
     setTimeout(() => {
       notification.remove();
     }, 3000);
