@@ -25,7 +25,7 @@ async function initCameraKit() {
   try {
     const cameraKit = await bootstrapCameraKit({ apiToken: 'eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzUyNDkyMzM3LCJzdWIiOiJlMDA1YTEzMy1jNmNlLTRmNmUtYjMyMC05YTNkYzVjOTRlZTN-U1RBR0lOR35mZjZkOGU3OC0xZWYzLTQ3ZWUtOGY0ZC1lM2Y5MDZjOTZlZTEifQ.yf7OFtk9dhdjq8FsmXghKNea_7GMoBF01AGEpTVj6ZY' });
     currentSession = await cameraKit.createSession({ liveRenderTarget });
-    const lenses = await cameraKit.lensRepository.loadLens('10573a22-a9e2-495c-9294-f917c95f7e37',
+    const lenses = await cameraKit.lensRepository.loadLens('d7528926-199d-4e36-8e06-c1e6d27ff519',
       'c352182f-89be-4007-b24c-8fcf50c56d56'
     );
 
