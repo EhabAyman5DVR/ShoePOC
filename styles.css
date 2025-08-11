@@ -55,6 +55,23 @@ body {
     flex-direction: column;
 }
 
+/* Hide other sections when camera is active */
+.camera-section[style*="display: flex"] ~ .model-preview-section,
+.camera-section[style*="display: flex"] ~ .model-viewer-section {
+    display: none !important;
+}
+
+/* Ensure camera section takes full screen on all devices */
+.camera-section[style*="display: flex"] {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+    background: #000 !important;
+}
+
 .camera-header {
     position: absolute;
     top: 20px;
@@ -174,8 +191,13 @@ model-viewer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .camera-section {
-        height: 40vh;
-        min-height: 300px;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 1000 !important;
+        background: #000 !important;
     }
     
     .model-viewer-section {
@@ -204,8 +226,13 @@ model-viewer {
 
 @media (max-width: 480px) {
     .camera-section {
-        height: 35vh;
-        min-height: 250px;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 1000 !important;
+        background: #000 !important;
     }
     
     model-viewer {
